@@ -59,6 +59,39 @@
     padding: 10px 12px; background: var(--paper-warm);
     border-radius: 7px; font-size: 14px; margin-bottom: 6px;
   }
+  .seat-shared {
+    background: #fef9ed;
+    border-left: 3px solid #d4a84b;
+  }
+  .seat-action {
+    background: transparent; border: none;
+    font-size: 14px; padding: 4px 6px;
+    cursor: pointer; border-radius: 4px;
+    transition: background 0.15s;
+    color: var(--muted);
+  }
+  .seat-action:hover { background: var(--line); color: var(--ink); }
+  .shared-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 2px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+  .mixed-badge {
+    display: inline-flex; align-items: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border-radius: 12px;
+    background: #fef9ed; color: #7a5818;
+    border: 1px solid #d4a84b;
+  }
+  .truck-card.truck-mixed { border-color: #d4a84b; }
   .seat-empty {
     display: flex; align-items: center; justify-content: center;
     padding: 10px 12px; border: 1px dashed var(--line);
@@ -391,6 +424,134 @@
     padding: 6px 0;
   }
 
+  /* Preview: mixta */
+  .wa-truck.wa-mixed {
+    border-color: #d4a84b;
+    border-width: 2px;
+  }
+  .wa-truck.wa-mixed .wa-truck-head {
+    background: #fef9ed;
+    border-bottom-color: #d4a84b;
+  }
+  .wa-mixed-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; flex-wrap: wrap;
+    padding: 6px 16px 10px;
+    background: #fef9ed;
+    border-bottom: 1.5px solid #d4a84b;
+  }
+  .wa-mixed-pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #fef9ed; color: #7a5818;
+    border: 1px solid #d4a84b;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-family: ui-monospace, 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .wa-other-fields {
+    display: flex; gap: 5px; flex-wrap: wrap;
+  }
+  .wa-other-field {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-family: ui-monospace, 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.08em;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+
+  /* Preview: badge compartido al lado del nombre */
+  .wa-shared-badge {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 3px;
+    font-family: ui-monospace, 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-left: 8px;
+    vertical-align: middle;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+  .wa-person-name-row {
+    display: flex; align-items: center; gap: 0; flex-wrap: wrap;
+  }
+
+  /* Preview: sección Continúan */
+  .wa-dir-section.continuan .wa-dir-section-title { color: #3a4a6a; border-bottom: 3px solid #3a4a6a; }
+  .wa-continuan-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .wa-continuan-card {
+    position: relative;
+    background: white;
+    border: 1px solid #d9d2c3;
+    border-radius: 8px;
+    padding: 12px 16px 12px 20px;
+    overflow: hidden;
+  }
+  .wa-continuan-stripe {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  }
+  .wa-continuan-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 8px; gap: 10px;
+  }
+  .wa-continuan-head-left {
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .wa-continuan-code {
+    font-family: ui-monospace, 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-size: 10px; font-weight: 700; color: #6b6457;
+    letter-spacing: 0.15em; text-transform: uppercase;
+  }
+  .wa-continuan-name {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px; font-weight: 600;
+  }
+  .wa-continuan-count {
+    font-family: ui-monospace, 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-size: 11px; color: #6b6457;
+  }
+  .wa-continuan-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 3px 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+  }
+  .wa-continuan-row-cargo {
+    font-family: ui-monospace, 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-size: 9px; color: #6b6457;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    white-space: nowrap;
+    margin-left: 8px;
+  }
+
+  /* Preview: badge de "→ BAS" en personas que van a Base sin descansar */
+  .wa-base-tobase {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-family: ui-monospace, 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.06em;
+    border: 1px solid rgba(0,0,0,0.1);
+    vertical-align: middle;
+  }
+  .wa-base-nodescansa {
+    font-family: ui-monospace, 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-size: 9px;
+    color: #7a5818;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
   /* FOOTER */
   .wa-footer {
     display: flex;
@@ -500,7 +661,8 @@
           <div class="label-section mb-2">Regla · Turno 15×6</div>
           <p class="text-sm ink-soft leading-relaxed">
             15 días de trabajo, 6 de descanso. Los coordinadores son la excepción (14×14).
-            Una persona sale de turno cuando aparece en operativa un día y en descanso al siguiente.
+            Una persona <strong>sale</strong> cuando hoy está en campo y mañana no (descanso, vacaciones,
+            incapacidad, licencia o training). <strong>Ingresa</strong> cuando hoy está en campo y ayer no.
           </p>
         </div>
         <div class="bg-paper-warm border border-line rounded-lg p-5">
@@ -693,7 +855,7 @@
   <div class="grid md:grid-cols-12 gap-6">
 
     <div class="md:col-span-4">
-      <div class="sticky top-20">
+      <div class="sticky top-20 max-h-[calc(100vh-100px)] overflow-y-auto pr-2">
         <div class="label-section mb-3">Pendientes de asignar</div>
         <div id="pending-list" class="space-y-4"></div>
 
@@ -701,6 +863,14 @@
 
         <div class="label-section mb-3">Base · sin camioneta</div>
         <div id="base-list" class="space-y-1.5"></div>
+
+        <div class="divider-dash my-5"></div>
+
+        <div class="flex items-center justify-between mb-3">
+          <div class="label-section">Continúan en su asignación</div>
+          <button id="toggle-continuan" class="text-xs muted hover:text-ink underline" onclick="toggleContinuanList()">Mostrar</button>
+        </div>
+        <div id="continuan-list" class="space-y-1.5 hidden"></div>
       </div>
     </div>
 
@@ -852,7 +1022,7 @@ function autoAssign() {
 
       const truckIds = [];
       for (let i = 0; i < numTrucks; i++) {
-        const t = { id: ++_tid, num: TRUCKS.length + 1, type: 'propia', destino: campo, direction };
+        const t = { id: ++_tid, num: TRUCKS.length + 1, type: 'rentada', destino: campo, direction };
         TRUCKS.push(t);
         truckIds.push(t.id);
       }
@@ -869,6 +1039,7 @@ function autoAssign() {
 function renderPlan() {
   renderPending();
   renderBase();
+  renderContinuan();
   renderTrucks();
   updateCounters();
 }
@@ -929,12 +1100,22 @@ function renderPending() {
 }
 
 function renderPendingPill(p) {
-  const truckOptions = TRUCKS
+  // Camionetas del mismo campo y dirección (recomendadas)
+  const sameField = TRUCKS
     .filter(t => t.destino === p.f && t.direction === p.dir)
     .map(t => {
       const inTruck = PEOPLE.filter(pp => pp.truckId === t.id).length;
       const full = inTruck >= 4;
-      return `<option value="${t.id}" ${full?'disabled':''}>Cam. ${t.num}${full?' (llena)':''}</option>`;
+      return `<option value="${t.id}" ${full?'disabled':''}>Cam. ${t.num} · ${FIELDS[t.destino].code}${full?' (llena)':` (${inTruck}/4)`}</option>`;
+    }).join('');
+
+  // Camionetas de OTROS campos pero misma dirección, con cupo libre (compartir)
+  const otherFields = TRUCKS
+    .filter(t => t.destino !== p.f && t.direction === p.dir)
+    .filter(t => PEOPLE.filter(pp => pp.truckId === t.id).length < 4)
+    .map(t => {
+      const inTruck = PEOPLE.filter(pp => pp.truckId === t.id).length;
+      return `<option value="${t.id}">Cam. ${t.num} · ${FIELDS[t.destino].code} (${inTruck}/4) · compartir</option>`;
     }).join('');
 
   return `
@@ -945,7 +1126,8 @@ function renderPendingPill(p) {
       </div>
       <select class="select-compact" onchange="assignPerson(${p.id}, this.value)">
         <option value="">Asignar ▾</option>
-        ${truckOptions}
+        ${sameField ? `<optgroup label="${p.f}">${sameField}</optgroup>` : ''}
+        ${otherFields ? `<optgroup label="Otros campos · cupo libre">${otherFields}</optgroup>` : ''}
         <option value="new">+ Nueva cam.</option>
       </select>
     </div>
@@ -958,16 +1140,35 @@ function renderBase() {
   const ing = basePeople.filter(p => p.dir === 'ingreso');
   const sal = basePeople.filter(p => p.dir === 'salida');
 
+  // Personas que SALEN de campo y van a Base (no descansan): mostrarlas también en INGRESAN
+  // con marca visual diferenciada
+  const vanABase = PEOPLE.filter(p => p.dir === 'salida' && p.va_a_base);
+
+  // Combinar: las que ya tenían Base como destino + las que llegan a Base saliendo de campo
+  const ingTotales = [
+    ...ing.map(p => ({...p, _from: 'directo'})),
+    ...vanABase.map(p => ({...p, _from: 'campo', n: p.n, c: p.c, fOrigen: p.f})),
+  ];
+
   container.innerHTML = `
     <div class="bg-white border border-line rounded-lg p-3">
-      <div class="font-mono text-[9px] tracking-widest dir-ingreso mb-1">↑ INGRESAN (${ing.length})</div>
-      ${ing.map(p => `
-        <div class="flex items-center gap-2 py-1">
-          <div class="w-1 h-4 rounded-sm" style="background:${FIELDS.Base.color}"></div>
-          <div class="flex-1 text-[13px] font-medium">${p.n}</div>
-          <div class="font-mono text-[9px] muted uppercase">${p.c}</div>
-        </div>
-      `).join('')}
+      <div class="font-mono text-[9px] tracking-widest dir-ingreso mb-1">↑ INGRESAN (${ingTotales.length})</div>
+      ${ingTotales.map(p => {
+        const isFromField = p._from === 'campo';
+        const fOrigen = isFromField ? FIELDS[p.fOrigen] : null;
+        return `
+          <div class="flex items-center gap-2 py-1">
+            <div class="w-1 h-4 rounded-sm" style="background:${FIELDS.Base.color}"></div>
+            <div class="flex-1">
+              <div class="text-[13px] font-medium leading-tight flex items-center gap-1.5 flex-wrap">
+                <span>${p.n}</span>
+                ${isFromField ? `<span class="shared-tag" title="Sale de ${p.fOrigen} y pasa a Base (no descansa)" style="background:${fOrigen.color};color:${fOrigen.text}">${fOrigen.code} → BAS</span>` : ''}
+              </div>
+              <div class="font-mono text-[9px] muted uppercase">${p.c}${isFromField ? ' · viene de campo' : ''}</div>
+            </div>
+          </div>
+        `;
+      }).join('')}
       ${sal.length ? `
         <div class="font-mono text-[9px] tracking-widest dir-salida mb-1 mt-2">↓ SALEN (${sal.length})</div>
         ${sal.map(p => `
@@ -980,6 +1181,66 @@ function renderBase() {
       ` : ''}
     </div>
   `;
+}
+
+function renderContinuan() {
+  const container = document.getElementById('continuan-list');
+  const toggleBtn = document.getElementById('toggle-continuan');
+  if (!container) return;
+
+  if (CONTINUAN.length === 0) {
+    container.innerHTML = '<div class="text-xs muted italic px-1 py-2">Ninguna persona continúa (carga datos del Excel para ver esta lista)</div>';
+    toggleBtn.textContent = '0 personas';
+    toggleBtn.disabled = true;
+    return;
+  }
+
+  toggleBtn.disabled = false;
+
+  // Agrupar por campo
+  const byField = {};
+  CONTINUAN.forEach(p => { (byField[p.f] ||= []).push(p); });
+
+  const html = Object.keys(byField).sort().map(campo => {
+    const f = FIELDS[campo];
+    if (!f) return '';
+    const personas = byField[campo];
+    return `
+      <div class="bg-white border border-line rounded-lg overflow-hidden mb-2">
+        <div class="field-stripe" style="background:${f.color}; height:3px;"></div>
+        <div class="p-2.5">
+          <div class="flex items-center justify-between mb-1">
+            <div>
+              <div class="font-mono text-[9px] muted tracking-widest">${f.code}</div>
+              <div class="font-display text-base leading-tight">${campo}</div>
+            </div>
+            <div class="font-mono text-xs muted">${personas.length}</div>
+          </div>
+          ${personas.map(p => `
+            <div class="flex items-center gap-2 py-0.5">
+              <div class="flex-1 text-[12px]">${p.n}</div>
+              <div class="font-mono text-[8px] muted uppercase">${p.c}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  container.innerHTML = html;
+  toggleBtn.textContent = container.classList.contains('hidden')
+    ? `Mostrar (${CONTINUAN.length})`
+    : `Ocultar (${CONTINUAN.length})`;
+}
+
+function toggleContinuanList() {
+  const container = document.getElementById('continuan-list');
+  const toggleBtn = document.getElementById('toggle-continuan');
+  if (!container) return;
+  container.classList.toggle('hidden');
+  toggleBtn.textContent = container.classList.contains('hidden')
+    ? `Mostrar (${CONTINUAN.length})`
+    : `Ocultar (${CONTINUAN.length})`;
 }
 
 function renderTrucks() {
@@ -1012,21 +1273,35 @@ function renderTruckCard(t) {
 
   const seats = Array(4).fill(null).map((_, i) => {
     const p = assigned[i];
-    if (p) return `
-      <div class="seat">
-        <span class="seat-num">${i+1}</span>
-        <div class="flex-1">
-          <div class="font-medium text-[14px] leading-tight">${p.n}</div>
-          <div class="font-mono text-[10px] muted uppercase">${p.c}</div>
+    if (p) {
+      // Si la persona pertenece a un campo distinto al destino de la camioneta, marcarla
+      const isShared = p.f !== t.destino;
+      const sharedBadge = isShared
+        ? `<span class="shared-tag" title="Persona de ${p.f}, comparte camioneta" style="background:${FIELDS[p.f].color};color:${FIELDS[p.f].text}">${FIELDS[p.f].code}</span>`
+        : '';
+      return `
+        <div class="seat${isShared ? ' seat-shared' : ''}">
+          <span class="seat-num">${i+1}</span>
+          <div class="flex-1 min-w-0">
+            <div class="font-medium text-[14px] leading-tight flex items-center gap-2 flex-wrap">
+              <span>${p.n}</span>
+              ${sharedBadge}
+            </div>
+            <div class="font-mono text-[10px] muted uppercase">${p.c}</div>
+          </div>
+          <button class="seat-action" onclick="movePersonPrompt(${p.id})" title="Mover a otra camioneta">↔</button>
+          <button class="seat-action" onclick="unassign(${p.id})" title="Quitar de camioneta" style="color:var(--accent-dark)">✕</button>
         </div>
-        <button class="text-xs hover:opacity-50" onclick="unassign(${p.id})" title="Quitar" style="color:var(--accent-dark)">✕</button>
-      </div>
-    `;
+      `;
+    }
     return `<div class="seat-empty"><span class="seat-num">${i+1}</span> &nbsp; PUESTO LIBRE</div>`;
   }).join('');
 
+  // Si la camioneta tiene personas de campos distintos, marcar el header
+  const hasMixed = assigned.some(p => p.f !== t.destino);
+
   return `
-    <div class="truck-card truck-${t.direction}">
+    <div class="truck-card truck-${t.direction}${hasMixed ? ' truck-mixed' : ''}">
       <div class="field-stripe" style="background:${f.color}; height:4px;"></div>
       <div class="p-4">
         <div class="flex items-start justify-between gap-3 mb-3 flex-wrap">
@@ -1034,6 +1309,7 @@ function renderTruckCard(t) {
             <div class="font-display text-3xl leading-none">Camioneta ${t.num}</div>
             <span class="dir-badge ${t.direction}">${t.direction==='ingreso'?'↑ INGRESO':'↓ SALIDA'}</span>
             <div class="px-3 py-1 rounded font-mono text-xs font-bold" style="background:${f.color};color:${f.text};">${f.code} · ${t.destino.toUpperCase()}</div>
+            ${hasMixed ? '<span class="mixed-badge" title="Esta camioneta lleva personas de varios campos">⚡ MIXTA</span>' : ''}
           </div>
           <div class="flex items-center gap-2">
             <button class="toggle-pill ${t.type}" onclick="toggleType(${t.id})" title="Click para cambiar">
@@ -1055,7 +1331,7 @@ function assignPerson(personId, truckValue) {
   if (!p) return;
 
   if (truckValue === 'new') {
-    const t = { id: ++_tid, num: TRUCKS.length + 1, type: 'propia', destino: p.f, direction: p.dir };
+    const t = { id: ++_tid, num: TRUCKS.length + 1, type: 'rentada', destino: p.f, direction: p.dir };
     TRUCKS.push(t);
     p.truckId = t.id;
     renumberTrucks();
@@ -1074,6 +1350,90 @@ function assignPerson(personId, truckValue) {
 function unassign(personId) {
   const p = PEOPLE.find(x => x.id === personId);
   if (p) p.truckId = null;
+  renderPlan();
+}
+
+function movePersonPrompt(personId) {
+  const p = PEOPLE.find(x => x.id === personId);
+  if (!p) return;
+  const currentTruckId = p.truckId;
+
+  // Camionetas elegibles: misma dirección, con cupo
+  const sameField = TRUCKS.filter(t =>
+    t.id !== currentTruckId &&
+    t.direction === p.dir &&
+    t.destino === p.f &&
+    PEOPLE.filter(pp => pp.truckId === t.id).length < 4
+  );
+  const otherFields = TRUCKS.filter(t =>
+    t.id !== currentTruckId &&
+    t.direction === p.dir &&
+    t.destino !== p.f &&
+    PEOPLE.filter(pp => pp.truckId === t.id).length < 4
+  );
+
+  if (sameField.length === 0 && otherFields.length === 0) {
+    showWarning('No hay otras camionetas con cupo en la misma dirección. Crea una nueva camioneta o desocupa una existente.');
+    return;
+  }
+
+  const renderTruckOption = (t) => {
+    const f = FIELDS[t.destino];
+    const inTruck = PEOPLE.filter(pp => pp.truckId === t.id).length;
+    return `
+      <label class="radio-option" onclick="document.querySelectorAll('#move-modal .radio-option').forEach(e=>e.classList.remove('selected')); this.classList.add('selected'); document.getElementById('moveTargetTruck').value='${t.id}'">
+        <div class="w-4 h-4 rounded" style="background:${f.color}; border:1px solid var(--line)"></div>
+        <div class="flex-1">
+          <div class="font-medium">Camioneta ${t.num} · ${t.destino}</div>
+          <div class="font-mono text-[10px] muted">${f.code} · ${t.type.toUpperCase()} · ${inTruck}/4 ocupados</div>
+        </div>
+      </label>
+    `;
+  };
+
+  const container = document.getElementById('modal-container');
+  container.innerHTML = `
+    <div id="move-modal" class="modal-backdrop" onclick="if(event.target===this) closeModal()">
+      <div class="modal-box" style="max-width:520px;">
+        <div class="label-section mb-2">Mover persona</div>
+        <h3 class="font-display text-3xl mb-1">${p.n}</h3>
+        <p class="text-sm muted mb-5">${p.c.toLowerCase()} · ${p.dir === 'ingreso' ? 'ingresa a' : 'sale de'} <strong class="ink">${p.f}</strong></p>
+
+        ${sameField.length ? `
+          <div class="label-section mb-2">Mismo campo (${p.f})</div>
+          <div class="mb-4">
+            ${sameField.map(renderTruckOption).join('')}
+          </div>
+        ` : ''}
+
+        ${otherFields.length ? `
+          <div class="label-section mb-2">Otros campos · cupo libre</div>
+          <p class="text-xs muted mb-2">La persona seguirá yendo a <strong>${p.f}</strong>, pero comparte camioneta con otro destino.</p>
+          <div class="mb-4">
+            ${otherFields.map(renderTruckOption).join('')}
+          </div>
+        ` : ''}
+
+        <input type="hidden" id="moveTargetTruck" value="">
+
+        <div class="flex gap-2 justify-end">
+          <button class="btn-ghost" onclick="closeModal()">Cancelar</button>
+          <button class="btn-primary" onclick="confirmMovePerson(${personId})">Mover →</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function confirmMovePerson(personId) {
+  const target = document.getElementById('moveTargetTruck').value;
+  if (!target) { showWarning('Selecciona una camioneta destino'); return; }
+  const tid = parseInt(target);
+  const inTruck = PEOPLE.filter(pp => pp.truckId === tid).length;
+  if (inTruck >= 4) { showWarning('Esa camioneta ya está llena'); return; }
+  const p = PEOPLE.find(x => x.id === personId);
+  if (p) p.truckId = tid;
+  closeModal();
   renderPlan();
 }
 
@@ -1141,13 +1501,13 @@ function addTruck(presetDirection) {
 
         <div class="label-section mb-2">Tipo</div>
         <div class="flex gap-2 mb-5">
-          <label class="radio-option flex-1 selected" onclick="this.parentElement.querySelectorAll('.radio-option').forEach(e=>e.classList.remove('selected')); this.classList.add('selected'); document.getElementById('newTruckType').value='propia'">
-            <span>Propia</span>
-          </label>
-          <label class="radio-option flex-1" onclick="this.parentElement.querySelectorAll('.radio-option').forEach(e=>e.classList.remove('selected')); this.classList.add('selected'); document.getElementById('newTruckType').value='rentada'">
+          <label class="radio-option flex-1 selected" onclick="this.parentElement.querySelectorAll('.radio-option').forEach(e=>e.classList.remove('selected')); this.classList.add('selected'); document.getElementById('newTruckType').value='rentada'">
             <span>Rentada</span>
           </label>
-          <input type="hidden" id="newTruckType" value="propia">
+          <label class="radio-option flex-1" onclick="this.parentElement.querySelectorAll('.radio-option').forEach(e=>e.classList.remove('selected')); this.classList.add('selected'); document.getElementById('newTruckType').value='propia'">
+            <span>Propia</span>
+          </label>
+          <input type="hidden" id="newTruckType" value="rentada">
         </div>
 
         <div class="flex gap-2 justify-end">
@@ -1195,29 +1555,66 @@ const INNGTECH_LOGO = 'data:image/jpeg;base64,' + '/9j/4AAQSkZJRgABAQAAAQABAAD/4
 function renderWhatsApp() {
   const ingTrucks = TRUCKS.filter(t => t.direction === 'ingreso').sort((a,b) => a.num - b.num);
   const salTrucks = TRUCKS.filter(t => t.direction === 'salida').sort((a,b) => a.num - b.num);
-  const baseIng = PEOPLE.filter(p => p.f === 'Base' && p.dir === 'ingreso');
+  const baseIngDirectos = PEOPLE.filter(p => p.f === 'Base' && p.dir === 'ingreso');
   const baseSal = PEOPLE.filter(p => p.f === 'Base' && p.dir === 'salida');
   const totalIng = PEOPLE.filter(p => p.dir === 'ingreso').length;
   const totalSal = PEOPLE.filter(p => p.dir === 'salida').length;
 
-  // Render persona con display:block explícito (evita problemas de flex-column en html2canvas)
-  const personHTML = (p) => `
-    <div class="wa-person">
-      <div class="wa-person-name">${p.n}</div>
-      <div class="wa-person-cargo">${p.c}</div>
-    </div>
-  `;
+  // Personas que SALEN de campo y pasan a Base mañana (no descansan)
+  const vanABaseDesdeCamp = PEOPLE.filter(p => p.dir === 'salida' && p.va_a_base);
+  const baseIngFull = [
+    ...baseIngDirectos.map(p => ({...p, _from: 'directo'})),
+    ...vanABaseDesdeCamp.map(p => ({n: p.n, c: p.c, f: p.f, _from: 'campo'})),
+  ];
+
+  const continuanList = (CONTINUAN || []).slice();
+
+  // Render persona con badge compartido si aplica
+  const personHTML = (p, contextField) => {
+    const isShared = contextField && p.f !== contextField;
+    const fOrigen = isShared ? FIELDS[p.f] : null;
+    return `
+      <div class="wa-person">
+        <div class="wa-person-name-row">
+          <span class="wa-person-name">${p.n}</span>
+          ${isShared && fOrigen ? `<span class="wa-shared-badge" style="background:${fOrigen.color};color:${fOrigen.text}">${fOrigen.code}</span>` : ''}
+        </div>
+        <div class="wa-person-cargo">${p.c}</div>
+      </div>
+    `;
+  };
+
+  // Render persona en lista de Base con badge "CAMPO → BAS" si viene de campo
+  const personBaseHTML = (p) => {
+    const fromField = p._from === 'campo';
+    const fOrigen = fromField ? FIELDS[p.f] : null;
+    return `
+      <div class="wa-person">
+        <div class="wa-person-name-row">
+          <span class="wa-person-name">${p.n}</span>
+          ${fromField && fOrigen ? `<span class="wa-base-tobase" style="background:${fOrigen.color};color:${fOrigen.text}">${fOrigen.code} → BAS</span>` : ''}
+        </div>
+        <div class="wa-person-cargo">
+          ${p.c}${fromField ? ' · <span class="wa-base-nodescansa">NO DESCANSA, VA A BASE</span>' : ''}
+        </div>
+      </div>
+    `;
+  };
 
   const renderTruckWA = (t, isLast, totalCount) => {
     const f = FIELDS[t.destino];
     const people = PEOPLE.filter(p => p.truckId === t.id);
     const fullWidth = isLast && totalCount % 2 === 1;
+    const isMixed = people.some(p => p.f !== t.destino);
+    const otherFields = [...new Set(people.filter(p => p.f !== t.destino).map(p => p.f))];
+
     const bodyHTML = people.length
-      ? people.map(personHTML).join('')
+      ? people.map(p => personHTML(p, t.destino)).join('')
       : '<div class="wa-empty-slot">— sin asignar —</div>';
+
     return `
       <div class="wa-truck-col ${fullWidth ? 'full-width' : ''}">
-        <div class="wa-truck">
+        <div class="wa-truck${isMixed ? ' wa-mixed' : ''}">
           <div class="wa-truck-head">
             <div class="wa-truck-num-block">
               <span class="wa-truck-label">Camioneta</span>
@@ -1230,6 +1627,18 @@ function renderWhatsApp() {
               <span class="wa-field-badge" style="background:${f.color};color:${f.text};">${f.code} · ${t.destino.toUpperCase()}</span>
             </div>
           </div>
+          ${isMixed ? `
+            <div class="wa-mixed-row">
+              <span class="wa-mixed-pill">⚡ Camioneta mixta</span>
+              <div class="wa-other-fields">
+                ${otherFields.map(of => {
+                  const oF = FIELDS[of];
+                  if (!oF) return '';
+                  return `<span class="wa-other-field" style="background:${oF.color};color:${oF.text}">+ ${oF.code}</span>`;
+                }).join('')}
+              </div>
+            </div>
+          ` : ''}
           <div class="wa-truck-body">${bodyHTML}</div>
         </div>
       </div>
@@ -1237,20 +1646,66 @@ function renderWhatsApp() {
   };
 
   const renderBaseCard = (people, direction) => {
-    const title = direction === 'ingreso' ? 'Ingresan a Base' : 'Salen de Base';
-    const cls = direction === 'salida' ? 'salida' : '';
+    const isIng = direction === 'ingreso';
+    const title = isIng ? 'Ingresan a Base' : 'Salen de Base';
+    const cls = isIng ? '' : 'salida';
     return `
       <div class="wa-base-card ${cls}">
         <div class="wa-base-title">${title}</div>
         <div class="wa-base-sub">sin camioneta asignada · ${people.length} ${people.length===1?'persona':'personas'}</div>
         <div class="wa-base-list">
-          ${people.map(p => `<div class="wa-base-item">${personHTML(p)}</div>`).join('')}
+          ${people.map(p => `<div class="wa-base-item">${isIng ? personBaseHTML(p) : personHTML(p, 'Base')}</div>`).join('')}
         </div>
       </div>
     `;
   };
 
-  const ingSection = (ingTrucks.length || baseIng.length) ? `
+  // Sección "Continúan en su asignación"
+  const renderContinuanSection = () => {
+    if (!continuanList.length) return '';
+    const byField = {};
+    continuanList.forEach(p => { (byField[p.f] ||= []).push(p); });
+    const fieldEntries = Object.entries(byField).sort();
+
+    const cardsHTML = fieldEntries.map(([campo, ps]) => {
+      const f = FIELDS[campo];
+      const stripeColor = f ? f.color : '#cccccc';
+      const code = f ? f.code : campo.substring(0,3).toUpperCase();
+      return `
+        <div class="wa-continuan-card">
+          <div class="wa-continuan-stripe" style="background:${stripeColor}"></div>
+          <div class="wa-continuan-head">
+            <div class="wa-continuan-head-left">
+              <span class="wa-continuan-code">${code}</span>
+              <span class="wa-continuan-name">${campo}</span>
+            </div>
+            <span class="wa-continuan-count">${ps.length}</span>
+          </div>
+          ${ps.map(p => `
+            <div class="wa-continuan-row">
+              <span>${p.n}</span>
+              <span class="wa-continuan-row-cargo">${p.c || ''}</span>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div class="wa-dir-section continuan">
+        <div class="wa-dir-section-title">
+          <svg class="wa-arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><path d="M5 13l4 4L19 7"/></svg>
+          Continúan en su asignación
+        </div>
+        <div class="wa-dir-section-sub">${continuanList.length} personas · no requieren movimiento</div>
+        <div class="wa-continuan-grid">
+          ${cardsHTML}
+        </div>
+      </div>
+    `;
+  };
+
+  const ingSection = (ingTrucks.length || baseIngFull.length) ? `
     <div class="wa-dir-section ingreso">
       <div class="wa-dir-section-title">
         <svg class="wa-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
@@ -1260,7 +1715,7 @@ function renderWhatsApp() {
       <div class="wa-trucks-grid">
         ${ingTrucks.map((t,i) => renderTruckWA(t, i === ingTrucks.length-1, ingTrucks.length)).join('')}
       </div>
-      ${baseIng.length ? renderBaseCard(baseIng, 'ingreso') : ''}
+      ${baseIngFull.length ? renderBaseCard(baseIngFull, 'ingreso') : ''}
     </div>
   ` : '';
 
@@ -1278,10 +1733,10 @@ function renderWhatsApp() {
     </div>
   ` : '';
 
-  // Calcular fecha a mostrar (dinámica si hay datos en vivo)
+  // Calcular fecha
   const targetISO = IS_LIVE_DATA && SELECTED_TUESDAY ? SELECTED_TUESDAY : '2026-04-14';
   const targetDate = new Date(targetISO + 'T00:00:00');
-  const saturdayBefore = addDays(targetDate, -3); // sábado anterior
+  const saturdayBefore = addDays(targetDate, -3);
   const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   const tituloFecha = `Martes ${targetDate.getDate()} de ${meses[targetDate.getMonth()].toLowerCase()}`;
   const fechaReporte = `Reporte del sábado ${saturdayBefore.getDate()} · ${meses[saturdayBefore.getMonth()]} · ${saturdayBefore.getFullYear()}`;
@@ -1317,6 +1772,7 @@ function renderWhatsApp() {
     <div class="wa-body">
       ${ingSection}
       ${salSection}
+      ${renderContinuanSection()}
     </div>
 
     <div class="wa-footer">
@@ -1388,10 +1844,23 @@ async function drawReportToCanvas(scale = 2) {
   // Calcular datos
   const ingTrucks = TRUCKS.filter(t => t.direction === 'ingreso').sort((a,b) => a.num - b.num);
   const salTrucks = TRUCKS.filter(t => t.direction === 'salida').sort((a,b) => a.num - b.num);
-  const baseIng = PEOPLE.filter(p => p.f === 'Base' && p.dir === 'ingreso');
+  const baseIngDirectos = PEOPLE.filter(p => p.f === 'Base' && p.dir === 'ingreso');
   const baseSal = PEOPLE.filter(p => p.f === 'Base' && p.dir === 'salida');
   const totalIng = PEOPLE.filter(p => p.dir === 'ingreso').length;
   const totalSal = PEOPLE.filter(p => p.dir === 'salida').length;
+
+  // Personas que SALEN de campo y pasan a Base mañana (no descansan)
+  // Aparecen en su camioneta de campo Y también listadas como "ingresan a Base"
+  const vanABaseDesdeCamp = PEOPLE.filter(p => p.dir === 'salida' && p.va_a_base);
+
+  // Lista total de "Ingresan a Base" combinada
+  const baseIng = [
+    ...baseIngDirectos.map(p => ({...p, _from: 'directo'})),
+    ...vanABaseDesdeCamp.map(p => ({n: p.n, c: p.c, f: p.f, _from: 'campo'})),
+  ];
+
+  // Lista de continúan (en su asignación)
+  const continuanList = (CONTINUAN || []).slice();
 
   const targetISO = IS_LIVE_DATA && SELECTED_TUESDAY ? SELECTED_TUESDAY : '2026-04-14';
   const targetDate = new Date(targetISO + 'T00:00:00');
@@ -1400,7 +1869,7 @@ async function drawReportToCanvas(scale = 2) {
   const tituloFecha = `Martes ${targetDate.getDate()} de ${mesesFull[targetDate.getMonth()].toLowerCase()}`;
   const fechaReporte = `REPORTE DEL SÁBADO ${saturdayBefore.getDate()} · ${mesesFull[saturdayBefore.getMonth()].toUpperCase()} · ${saturdayBefore.getFullYear()}`;
 
-  // ----- Layout constants (en unidades lógicas, luego se multiplican por scale) -----
+  // ----- Layout constants -----
   const W = 1080;
   const PAD_X = 48;
   const INNER_W = W - 2 * PAD_X;
@@ -1413,37 +1882,55 @@ async function drawReportToCanvas(scale = 2) {
   const logoW = logo.width * (logoH / logo.height);
 
   // ----- PRIMERA PASADA: calcular altura total -----
-  // Header: 40 pad + logo row (58) + 22 gap + date (15+8) + title (52) + 8 + subtitle (15) + 22 + border + 20 + kpi (42+6+12) + 34 pad
   let y = 0;
   const HEADER_H = 40 + 58 + 22 + 15 + 8 + 52 + 8 + 15 + 22 + 1 + 20 + 42 + 6 + 12 + 34;
 
   const measureTruckHeight = (t) => {
     const people = PEOPLE.filter(p => p.truckId === t.id);
     const n = Math.max(people.length, 1);
-    // head: 12+24+12 + 1 (border) = 49 aprox
-    // body: 12 top + 9+2+11+2 per person * n (min 40) + 12 bottom
+    const isMixed = people.some(p => p.f !== t.destino);
+    const headH = 53 + (isMixed ? 22 : 0);
     const bodyH = 10 + Math.max(n * 45, 50) + 12;
-    return 53 + bodyH; // head+body
+    return headH + bodyH;
   };
 
   const measureBaseCardHeight = (people) => {
-    // 16 top + 22 (title) + 4 + 11 (sub) + 14 + ((people/2) rows * 45) + 16 bottom
     const rows = Math.ceil(people.length / 2);
     return 16 + 22 + 4 + 11 + 14 + rows * 45 + 16;
+  };
+
+  // Medir sección "Continúan": cards por campo
+  // Card por campo: 12 top + 14 title + 8 + N personas * 22 + 12 bottom
+  const measureContinuanSection = () => {
+    if (!continuanList.length) return 0;
+    const byField = {};
+    continuanList.forEach(p => { (byField[p.f] ||= []).push(p); });
+    let h = 28 + 10 + 12 + 16; // title
+    // Grid de 2 columnas, las cards se acomodan al ancho del campo
+    const fieldCards = Object.entries(byField);
+    // Cada card: 14 (head) + 8 (gap) + N*22 (rows) + 24 (paddings)
+    const cardHeights = fieldCards.map(([campo, ps]) => 12 + 14 + 8 + ps.length * 22 + 12);
+    // Distribuir en 2 columnas: tomar pares y sumar el max
+    for (let i = 0; i < cardHeights.length; i += 2) {
+      const h1 = cardHeights[i];
+      const h2 = cardHeights[i+1] || 0;
+      h += Math.max(h1, h2) + 14;
+    }
+    h += 20; // bottom
+    return h;
   };
 
   let bodyH = 32; // top padding
   // Sección ingresos
   if (ingTrucks.length || baseIng.length) {
-    bodyH += 28 + 10 + 12 + 16; // title + sub + gap
-    // Trucks en grid 2 columnas
+    bodyH += 28 + 10 + 12 + 16;
     for (let i = 0; i < ingTrucks.length; i += 2) {
       const h1 = measureTruckHeight(ingTrucks[i]);
       const h2 = ingTrucks[i+1] ? measureTruckHeight(ingTrucks[i+1]) : 0;
       bodyH += Math.max(h1, h2) + 14;
     }
     if (baseIng.length) bodyH += measureBaseCardHeight(baseIng) + 14;
-    bodyH += 26; // margin bottom
+    bodyH += 26;
   }
   // Sección salidas
   if (salTrucks.length || baseSal.length) {
@@ -1456,9 +1943,13 @@ async function drawReportToCanvas(scale = 2) {
     if (baseSal.length) bodyH += measureBaseCardHeight(baseSal) + 14;
     bodyH += 26;
   }
+  // Sección continúan
+  if (continuanList.length) {
+    bodyH += measureContinuanSection();
+  }
   bodyH += 16; // bottom padding
 
-  const FOOTER_H = 18 + 28 + 14; // padding + text
+  const FOOTER_H = 18 + 28 + 14;
   const TOTAL_H = HEADER_H + bodyH + FOOTER_H;
 
   // ----- CANVAS SETUP -----
@@ -1641,6 +2132,9 @@ async function drawReportToCanvas(scale = 2) {
   if (salTrucks.length || baseSal.length) {
     drawSection('Salen de turno', 'salida', salTrucks, baseSal, totalSal);
   }
+  if (continuanList.length) {
+    drawContinuanSection(ctx, continuanList, PAD_X, y, INNER_W, FONT_SANS, FONT_MONO);
+  }
 
   // ================ FOOTER ================
   const footerY = TOTAL_H - FOOTER_H;
@@ -1684,21 +2178,24 @@ function drawTruck(ctx, t, x, y, w, FONT_SANS, FONT_MONO) {
   const f = FIELDS[t.destino];
   const people = PEOPLE.filter(p => p.truckId === t.id);
   const n = Math.max(people.length, 1);
+  const isMixed = people.some(p => p.f !== t.destino);
+  const otherFields = [...new Set(people.filter(p => p.f !== t.destino).map(p => p.f))];
+
   const bodyH = 10 + Math.max(n * 45, 50) + 12;
-  const headH = 53;
+  const headH = 53 + (isMixed ? 22 : 0);
   const totalH = headH + bodyH;
 
-  // Borde exterior
+  // Borde exterior — ámbar si es mixta para destacar
   ctx.fillStyle = '#ffffff';
   roundRect(ctx, x, y, w, totalH, 8);
   ctx.fill();
-  ctx.strokeStyle = '#0d2970';
-  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = isMixed ? '#d4a84b' : '#0d2970';
+  ctx.lineWidth = isMixed ? 2 : 1.5;
   roundRect(ctx, x, y, w, totalH, 8);
   ctx.stroke();
 
-  // Head (fondo gris claro)
-  ctx.fillStyle = '#f4f7fc';
+  // Head (fondo crema si mixta, gris azulado si normal)
+  ctx.fillStyle = isMixed ? '#fef9ed' : '#f4f7fc';
   ctx.beginPath();
   ctx.moveTo(x, y + 8);
   ctx.arcTo(x, y, x + 8, y, 8);
@@ -1710,8 +2207,8 @@ function drawTruck(ctx, t, x, y, w, FONT_SANS, FONT_MONO) {
   ctx.fill();
 
   // Línea bottom del head
-  ctx.strokeStyle = '#0d2970';
-  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = isMixed ? '#d4a84b' : '#0d2970';
+  ctx.lineWidth = isMixed ? 2 : 1.5;
   ctx.beginPath();
   ctx.moveTo(x, y + headH);
   ctx.lineTo(x + w, y + headH);
@@ -1737,7 +2234,7 @@ function drawTruck(ctx, t, x, y, w, FONT_SANS, FONT_MONO) {
   // Pill PROPIA/RENTADA al lado del número
   const pillText = t.type.toUpperCase();
   const pillX = hx + numW + 10;
-  const pillCenterY = hy + 10 + 14; // centro vertical del número
+  const pillCenterY = hy + 10 + 14;
   ctx.font = `700 10px ${FONT_MONO}`;
   const pillTextW = ctx.measureText(pillText).width + pillText.length * 10 * 0.1;
   const pillPadX = 10, pillPadY = 3;
@@ -1761,7 +2258,7 @@ function drawTruck(ctx, t, x, y, w, FONT_SANS, FONT_MONO) {
   ctx.textBaseline = 'middle';
   drawSpacedText(ctx, pillText, pillX + pillPadX, pillY + pillH / 2, 0.1);
 
-  // Field badge a la derecha
+  // Field badge a la derecha (campo destino principal)
   const badgeText = `${f.code} · ${t.destino.toUpperCase()}`;
   ctx.font = `700 14px ${FONT_MONO}`;
   const badgeTextW = ctx.measureText(badgeText).width + badgeText.length * 14 * 0.1;
@@ -1769,7 +2266,7 @@ function drawTruck(ctx, t, x, y, w, FONT_SANS, FONT_MONO) {
   const badgeW = badgeTextW + 2 * badgePadX;
   const badgeH = 14 + 2 * badgePadY;
   const badgeX = x + w - 16 - badgeW;
-  const badgeY = y + (headH - badgeH) / 2;
+  const badgeY = y + 12;
 
   ctx.fillStyle = f.color;
   roundRect(ctx, badgeX, badgeY, badgeW, badgeH, 5);
@@ -1778,6 +2275,59 @@ function drawTruck(ctx, t, x, y, w, FONT_SANS, FONT_MONO) {
   ctx.fillStyle = f.text;
   ctx.textBaseline = 'middle';
   drawSpacedText(ctx, badgeText, badgeX + badgePadX, badgeY + badgeH / 2, 0.1);
+
+  // Si es mixta: "+CAMPO" badges debajo del principal
+  if (isMixed && otherFields.length) {
+    let cursorX = x + w - 16;
+    const otherBadgeY = badgeY + badgeH + 4;
+    // Dibujar de derecha a izquierda
+    for (let i = 0; i < otherFields.length; i++) {
+      const oField = otherFields[i];
+      const oF = FIELDS[oField];
+      if (!oF) continue;
+      const oText = `+ ${oF.code}`;
+      ctx.font = `700 11px ${FONT_MONO}`;
+      const oTextW = ctx.measureText(oText).width + oText.length * 11 * 0.08;
+      const oPadX = 8, oPadY = 3;
+      const oW = oTextW + 2 * oPadX;
+      const oH = 11 + 2 * oPadY;
+      const oX = cursorX - oW;
+
+      ctx.fillStyle = oF.color;
+      roundRect(ctx, oX, otherBadgeY, oW, oH, 4);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(0,0,0,0.08)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      ctx.fillStyle = oF.text;
+      ctx.textBaseline = 'middle';
+      drawSpacedText(ctx, oText, oX + oPadX, otherBadgeY + oH / 2, 0.08);
+
+      cursorX = oX - 5;
+    }
+
+    // Etiqueta "MIXTA" a la izquierda al mismo nivel que los badges secundarios
+    const mixedText = '⚡ CAMIONETA MIXTA';
+    ctx.font = `700 11px ${FONT_MONO}`;
+    const mixedTextW = ctx.measureText(mixedText).width + mixedText.length * 11 * 0.08;
+    const mPadX = 9, mPadY = 3;
+    const mW = mixedTextW + 2 * mPadX;
+    const mH = 11 + 2 * mPadY;
+    const mX = hx;
+    const mY = otherBadgeY;
+
+    ctx.fillStyle = '#fef9ed';
+    roundRect(ctx, mX, mY, mW, mH, mH / 2);
+    ctx.fill();
+    ctx.strokeStyle = '#d4a84b';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.fillStyle = '#7a5818';
+    ctx.textBaseline = 'middle';
+    drawSpacedText(ctx, mixedText, mX + mPadX, mY + mH / 2, 0.08);
+  }
 
   // Body: lista de personas
   let py = y + headH + 10;
@@ -1791,16 +2341,43 @@ function drawTruck(ctx, t, x, y, w, FONT_SANS, FONT_MONO) {
     drawSpacedText(ctx, '— SIN ASIGNAR —', bodyX, py + 20, 0.1);
   } else {
     people.forEach((p, idx) => {
+      const isShared = p.f !== t.destino;
+
       // Nombre
       ctx.fillStyle = '#0f1419';
       ctx.font = `500 15px ${FONT_SANS}`;
       ctx.textBaseline = 'top';
-      const nombre = truncateText(ctx, p.n, bodyW);
+      const nombre = truncateText(ctx, p.n, bodyW - (isShared ? 60 : 0));
       ctx.fillText(nombre, bodyX, py);
+
+      // Si es persona de otro campo, dibujar badge con el código del campo origen
+      if (isShared) {
+        const fOrigin = FIELDS[p.f];
+        const badgeText = fOrigin.code;
+        ctx.font = `700 10px ${FONT_MONO}`;
+        const badgeTextW = ctx.measureText(badgeText).width + badgeText.length * 10 * 0.08;
+        const bPadX = 7, bPadY = 3;
+        const bW = badgeTextW + 2 * bPadX;
+        const bH = 10 + 2 * bPadY;
+        const bX = bodyX + bodyW - bW;
+        const bY = py - 1;
+        ctx.fillStyle = fOrigin.color;
+        roundRect(ctx, bX, bY, bW, bH, 3);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        ctx.fillStyle = fOrigin.text;
+        ctx.textBaseline = 'middle';
+        drawSpacedText(ctx, badgeText, bX + bPadX, bY + bH/2, 0.08);
+      }
+
       // Cargo
       ctx.fillStyle = '#6b6457';
       ctx.font = `500 9px ${FONT_MONO}`;
+      ctx.textBaseline = 'top';
       drawSpacedText(ctx, p.c.toUpperCase(), bodyX, py + 18, 0.1);
+
       // Separador (dashed)
       if (idx < people.length - 1) {
         ctx.strokeStyle = '#d9d2c3';
@@ -1850,20 +2427,168 @@ function drawBaseCard(ctx, people, direction, x, y, w, FONT_SANS, FONT_MONO) {
   drawSpacedText(ctx, `SIN CAMIONETA ASIGNADA · ${people.length} ${people.length === 1 ? 'PERSONA' : 'PERSONAS'}`, cx, cy, 0.12);
   cy += 11 + 14;
 
-  // Personas en 2 columnas
+  // Personas en 2 columnas (con badge de campo origen si vienen de campo)
   const colW = (w - 40 - 20) / 2;
   people.forEach((p, idx) => {
     const col = idx % 2;
     const row = Math.floor(idx / 2);
     const px = cx + col * (colW + 20);
     const py = cy + row * 45;
+
+    const fromField = p._from === 'campo';
+    const fOrigen = fromField ? FIELDS[p.f] : null;
+
+    // Nombre
     ctx.fillStyle = '#0f1419';
     ctx.font = `500 15px ${FONT_SANS}`;
     ctx.textBaseline = 'top';
-    ctx.fillText(truncateText(ctx, p.n, colW), px, py);
+    const reservaBadge = fromField ? 75 : 0;
+    ctx.fillText(truncateText(ctx, p.n, colW - reservaBadge), px, py);
+
+    // Badge "CAMPO → BAS" si viene de campo
+    if (fromField && fOrigen) {
+      const badgeText = `${fOrigen.code} → BAS`;
+      ctx.font = `700 9px ${FONT_MONO}`;
+      const badgeTextW = ctx.measureText(badgeText).width + badgeText.length * 9 * 0.08;
+      const bPadX = 6, bPadY = 2;
+      const bW = badgeTextW + 2 * bPadX;
+      const bH = 9 + 2 * bPadY;
+      const bX = px + colW - bW;
+      const bY = py - 1;
+      ctx.fillStyle = fOrigen.color;
+      roundRect(ctx, bX, bY, bW, bH, 3);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.fillStyle = fOrigen.text;
+      ctx.textBaseline = 'middle';
+      drawSpacedText(ctx, badgeText, bX + bPadX, bY + bH/2, 0.08);
+    }
+
+    // Cargo (con marca "viene de campo")
     ctx.fillStyle = '#6b6457';
     ctx.font = `500 9px ${FONT_MONO}`;
-    drawSpacedText(ctx, p.c.toUpperCase(), px, py + 18, 0.1);
+    ctx.textBaseline = 'top';
+    const cargoLine = fromField ? `${p.c.toUpperCase()} · NO DESCANSA, VA A BASE` : p.c.toUpperCase();
+    drawSpacedText(ctx, cargoLine, px, py + 18, 0.1);
+  });
+}
+
+// Sección "Continúan en su asignación": cards por campo en grid 2 columnas
+function drawContinuanSection(ctx, list, x, y, w, FONT_SANS, FONT_MONO) {
+  // Título de sección
+  ctx.fillStyle = '#3a4a6a';
+  ctx.font = `700 28px ${FONT_SANS}`;
+  ctx.textBaseline = 'top';
+
+  // Icono check
+  const iconX = x;
+  const iconY = y + 4;
+  ctx.strokeStyle = '#3a4a6a';
+  ctx.lineWidth = 3;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.beginPath();
+  ctx.moveTo(iconX + 3, iconY + 12);
+  ctx.lineTo(iconX + 9, iconY + 18);
+  ctx.lineTo(iconX + 21, iconY + 4);
+  ctx.stroke();
+  ctx.fillText('Continúan en su asignación', iconX + 30, y);
+  y += 28 + 10;
+
+  // Línea bajo el título
+  ctx.strokeStyle = '#3a4a6a';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x + w, y);
+  ctx.stroke();
+  y += 12;
+
+  // Subtítulo
+  ctx.fillStyle = '#6b6457';
+  ctx.font = `500 12px ${FONT_MONO}`;
+  drawSpacedText(ctx, `${list.length} PERSONAS · NO REQUIEREN MOVIMIENTO`, x, y, 0.12);
+  y += 12 + 16;
+
+  // Agrupar por campo
+  const byField = {};
+  list.forEach(p => { (byField[p.f] ||= []).push(p); });
+  const fieldEntries = Object.entries(byField).sort();
+
+  // Cards en grid 2 columnas
+  const cardW = (w - 14) / 2;
+  let i = 0;
+  while (i < fieldEntries.length) {
+    const left = fieldEntries[i];
+    const right = fieldEntries[i+1];
+    const hLeft  = 12 + 14 + 8 + left[1].length * 22 + 12;
+    const hRight = right ? 12 + 14 + 8 + right[1].length * 22 + 12 : 0;
+    const rowH = Math.max(hLeft, hRight);
+
+    drawContinuanCard(ctx, left[0], left[1], x, y, cardW, FONT_SANS, FONT_MONO);
+    if (right) {
+      drawContinuanCard(ctx, right[0], right[1], x + cardW + 14, y, cardW, FONT_SANS, FONT_MONO);
+    }
+    y += rowH + 14;
+    i += 2;
+  }
+}
+
+function drawContinuanCard(ctx, campo, personas, x, y, w, FONT_SANS, FONT_MONO) {
+  const f = FIELDS[campo];
+  const h = 12 + 14 + 8 + personas.length * 22 + 12;
+
+  // Fondo blanco con borde gris
+  ctx.fillStyle = '#ffffff';
+  roundRect(ctx, x, y, w, h, 8);
+  ctx.fill();
+  ctx.strokeStyle = '#d9d2c3';
+  ctx.lineWidth = 1;
+  roundRect(ctx, x, y, w, h, 8);
+  ctx.stroke();
+
+  // Stripe izquierdo con color del campo
+  ctx.fillStyle = f ? f.color : '#cccccc';
+  ctx.fillRect(x, y, 4, h);
+
+  // Header del card: código + nombre del campo + count
+  const px = x + 16;
+  let py = y + 12;
+
+  ctx.fillStyle = '#6b6457';
+  ctx.font = `700 10px ${FONT_MONO}`;
+  ctx.textBaseline = 'top';
+  drawSpacedText(ctx, f ? f.code : campo.toUpperCase(), px, py, 0.15);
+
+  ctx.fillStyle = '#0f1419';
+  ctx.font = `600 14px ${FONT_SANS}`;
+  ctx.fillText(campo, px + 50, py);
+
+  // Count a la derecha
+  ctx.fillStyle = '#6b6457';
+  ctx.font = `500 11px ${FONT_MONO}`;
+  ctx.textBaseline = 'top';
+  ctx.textAlign = 'right';
+  ctx.fillText(`${personas.length}`, x + w - 16, py + 1);
+  ctx.textAlign = 'left';
+
+  py += 14 + 8;
+
+  // Lista de personas (dos columnas internas si caben más de 6)
+  personas.forEach((p) => {
+    ctx.fillStyle = '#0f1419';
+    ctx.font = `500 12px ${FONT_SANS}`;
+    ctx.textBaseline = 'top';
+    ctx.fillText(truncateText(ctx, p.n, w - 90), px, py);
+
+    ctx.fillStyle = '#6b6457';
+    ctx.font = `500 9px ${FONT_MONO}`;
+    ctx.textAlign = 'right';
+    ctx.fillText(p.c ? p.c.toUpperCase() : '', x + w - 16, py + 2);
+    ctx.textAlign = 'left';
+    py += 22;
   });
 }
 
@@ -1904,24 +2629,39 @@ let SELECTED_TUESDAY = null;  // Martes seleccionado (ISO string)
 let LOADED_FILENAME = null;
 let IS_LIVE_DATA = false;     // true = datos reales del Excel cargado, false = demo
 
-// Datos DEMO (los que ya teníamos hardcoded) — los guardamos para poder volver
+// Personas que continúan en su asignación actual (no son ingresos ni salidas)
+let CONTINUAN = [];
+
+// Datos DEMO — los guardamos para poder volver
 const DEMO_INGRESOS = INGRESOS.slice();
 const DEMO_SALIDAS = SALIDAS.slice();
+const DEMO_CONTINUAN = []; // Demo no tiene continúan (es solo el martes 14-abr precargado)
 const DEMO_DATE = '2026-04-14';
 
-// Catálogo extendido de campos (del cat_Campos del Excel) — para manejar casos fuera del demo
+// Catálogo extendido de campos (del cat_Campos del Excel v15) — 22 campos operativos
 const FIELDS_FULL = {
-  'Base':     { code: 'BAS', color: '#92D050', text: '#0f1419', needsTruck: false },
-  'Cajua':    { code: 'CAJ', color: '#0070C0', text: '#ffffff', needsTruck: true },
-  'Quifa':    { code: 'QUI', color: '#FFFF00', text: '#0f1419', needsTruck: true },
-  'Rubiales': { code: 'RUB', color: '#FFC000', text: '#0f1419', needsTruck: true },
-  'Sabanero': { code: 'SAB', color: '#FFCCFF', text: '#0f1419', needsTruck: true },
-  'Canacol':  { code: 'CAN', color: '#002060', text: '#ffffff', needsTruck: true },
-  'Petrolco': { code: 'PET', color: '#CC6600', text: '#ffffff', needsTruck: true },
-  'Cepsa':    { code: 'CEP', color: '#66FFFF', text: '#0f1419', needsTruck: true },
-  'Perenco':  { code: 'PER', color: '#A86000', text: '#ffffff', needsTruck: true },
-  'Telpico':  { code: 'TEL', color: '#C0C0C0', text: '#0f1419', needsTruck: true },
-  'Brinsa':   { code: 'BRI', color: '#E7E6E6', text: '#0f1419', needsTruck: true },
+  'Base':      { code: 'BAS', color: '#92D050', text: '#0f1419', needsTruck: false },
+  'Cajua':     { code: 'CAJ', color: '#0070C0', text: '#ffffff', needsTruck: true },
+  'Quifa':     { code: 'QUI', color: '#FFFF00', text: '#0f1419', needsTruck: true },
+  'Rubiales':  { code: 'RUB', color: '#FFC000', text: '#0f1419', needsTruck: true },
+  'Sabanero':  { code: 'SAB', color: '#FFCCFF', text: '#0f1419', needsTruck: true },
+  'Canacol':   { code: 'CAN', color: '#002060', text: '#ffffff', needsTruck: true },
+  'Petrolco':  { code: 'PET', color: '#CC6600', text: '#ffffff', needsTruck: true },
+  'Yarigui':   { code: 'YR',  color: '#66FFFF', text: '#0f1419', needsTruck: true },
+  'Perenco':   { code: 'PER', color: '#A86000', text: '#ffffff', needsTruck: true },
+  'Telpico':   { code: 'TEL', color: '#C0C0C0', text: '#0f1419', needsTruck: true },
+  'Brinsa':    { code: 'BRI', color: '#E7E6E6', text: '#0f1419', needsTruck: true },
+  'WSO QF':    { code: 'WQF', color: '#008B8B', text: '#ffffff', needsTruck: true },
+  'Guaduas':   { code: 'GUA', color: '#556B2F', text: '#ffffff', needsTruck: true },
+  'Cicuco':    { code: 'CIC', color: '#C71585', text: '#ffffff', needsTruck: true },
+  'Greta':     { code: 'GRT', color: '#8B4513', text: '#ffffff', needsTruck: true },
+  'Creciente': { code: 'CRE', color: '#E91E63', text: '#ffffff', needsTruck: true },
+  'Vetra':     { code: 'VET', color: '#FF5722', text: '#ffffff', needsTruck: true },
+  'Papilio':   { code: 'PAP', color: '#673AB7', text: '#ffffff', needsTruck: true },
+  'Coralillo': { code: 'COR', color: '#FF9800', text: '#0f1419', needsTruck: true },
+  'Guama':     { code: 'GUM', color: '#009688', text: '#ffffff', needsTruck: true },
+  'WSO Hamaca':{ code: 'WHA', color: '#4CAF50', text: '#ffffff', needsTruck: true },
+  'ICP':       { code: 'ICP', color: '#5D4037', text: '#ffffff', needsTruck: true },
 };
 
 // Actualizar el objeto FIELDS global con el catálogo completo
@@ -2123,7 +2863,7 @@ function populateTuesdaySelect() {
 }
 
 function computeMovimientosForDate(isoDate) {
-  if (!EXCEL_DATA || !EXCEL_DATA[isoDate]) return { ingresos: [], salidas: [], fueraCatalogo: [] };
+  if (!EXCEL_DATA || !EXCEL_DATA[isoDate]) return { ingresos: [], salidas: [], continuan: [], fueraCatalogo: [] };
 
   const hoy = EXCEL_DATA[isoDate];
   const ayerISO = formatDateISO(addDays(new Date(isoDate + 'T00:00:00'), -1));
@@ -2131,29 +2871,55 @@ function computeMovimientosForDate(isoDate) {
   const ayer = EXCEL_DATA[ayerISO] || {};
   const maniana = EXCEL_DATA[manianaISO] || {};
 
-  const ingresos = [], salidas = [], fueraCatalogo = new Set();
+  const ingresos = [], salidas = [], continuan = [], fueraCatalogoSet = new Set();
 
-  // INGRESOS: están en operación directa hoy + no estaban en el mismo campo ayer
   Object.entries(hoy).forEach(([nombre, info]) => {
     if (info.tipo !== 'Operacion directa') return;
+    if (!FIELDS[info.asig]) { fueraCatalogoSet.add(info.asig); return; }
+
     const infoAyer = ayer[nombre];
-    if (!infoAyer || infoAyer.cod !== info.cod) {
-      if (!FIELDS[info.asig]) { fueraCatalogo.add(info.asig); return; }
-      ingresos.push({ n: nombre, c: info.cargo, f: info.asig });
-    }
-  });
-
-  // SALIDAS: están en operación directa hoy + mañana están en DES (descanso)
-  Object.entries(hoy).forEach(([nombre, info]) => {
-    if (info.tipo !== 'Operacion directa') return;
     const infoManiana = maniana[nombre];
-    if (infoManiana && infoManiana.cod === 'DES') {
-      if (!FIELDS[info.asig]) { fueraCatalogo.add(info.asig); return; }
-      salidas.push({ n: nombre, c: info.cargo, f: info.asig });
+
+    const esIngreso = !infoAyer
+                   || infoAyer.tipo !== 'Operacion directa'
+                   || infoAyer.cod !== info.cod;
+    const esSalida  = !infoManiana
+                   || infoManiana.tipo !== 'Operacion directa'
+                   || infoManiana.cod !== info.cod;
+
+    // INGRESO
+    if (esIngreso) {
+      ingresos.push({
+        n: nombre, c: info.cargo, f: info.asig,
+        // ¿De dónde viene? útil para reportar en pendientes/UI
+        viene_de: infoAyer ? infoAyer.asig : null,
+      });
+    }
+
+    // SALIDA: incluye marcador "destino_maniana" para identificar salidas a Base
+    if (esSalida) {
+      const destinoMan = infoManiana ? infoManiana.asig : null;
+      const codigoMan  = infoManiana ? infoManiana.cod : null;
+      // ¿Sale del campo pero pasa a Base? (no descansa)
+      const vaABase = infoManiana
+                   && infoManiana.tipo === 'Operacion directa'
+                   && infoManiana.cod === 'BAS'
+                   && info.cod !== 'BAS'; // si ya estaba en Base, no aplica
+      salidas.push({
+        n: nombre, c: info.cargo, f: info.asig,
+        destino_man: destinoMan,
+        codigo_man: codigoMan,
+        va_a_base: vaABase,
+      });
+    }
+
+    // CONTINÚAN: ni es ingreso ni es salida → estaba ayer en el mismo campo Y seguirá mañana
+    if (!esIngreso && !esSalida) {
+      continuan.push({ n: nombre, c: info.cargo, f: info.asig });
     }
   });
 
-  return { ingresos, salidas, fueraCatalogo: [...fueraCatalogo] };
+  return { ingresos, salidas, continuan, fueraCatalogo: [...fueraCatalogoSet] };
 }
 
 function previewTuesday(isoDate) {
@@ -2203,13 +2969,17 @@ function previewTuesday(isoDate) {
 
 function applySelectedDate() {
   if (!SELECTED_TUESDAY) return;
-  const { ingresos, salidas } = computeMovimientosForDate(SELECTED_TUESDAY);
+  const { ingresos, salidas, continuan } = computeMovimientosForDate(SELECTED_TUESDAY);
 
   // Reemplazar PEOPLE global
   PEOPLE = [];
   _id = 0;
   ingresos.forEach(p => PEOPLE.push({...p, id: ++_id, dir: 'ingreso', truckId: null}));
-  salidas.forEach(p => PEOPLE.push({...p, id: ++_id, dir: 'salida', truckId: null}));
+  salidas.forEach(p => PEOPLE.push({...p, id: ++_id, dir: 'salida', truckId: null,
+                                    destino_man: p.destino_man, va_a_base: p.va_a_base}));
+
+  // Guardar lista de continuan globalmente
+  CONTINUAN = continuan.slice();
 
   IS_LIVE_DATA = true;
   updateModeChip();
@@ -2225,6 +2995,7 @@ function resetToDemo() {
   _id = 0;
   DEMO_INGRESOS.forEach(p => PEOPLE.push({...p, id: ++_id, dir: 'ingreso', truckId: null}));
   DEMO_SALIDAS.forEach(p => PEOPLE.push({...p, id: ++_id, dir: 'salida', truckId: null}));
+  CONTINUAN = [];
 
   IS_LIVE_DATA = false;
   SELECTED_TUESDAY = null;
