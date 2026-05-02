@@ -12,7 +12,7 @@
 <style>
   :root {
     --ink: #0f1419; --ink-soft: #2a2f36;
-    --paper: #dbeafe; --paper-warm: #bfdbfe;
+    --paper: #f6f3ed; --paper-warm: #efe9dc;
     --line: #d9d2c3; --accent: #c8461e; --accent-dark: #8f2f12;
     --muted: #6b6457; --success: #2f6b3a; --warning: #b7791f;
   }
@@ -1013,7 +1013,12 @@ function autoAssign() {
   _tid = 0;
   PEOPLE.forEach(p => p.truckId = null);
 
-  const campos = ['Cajua','Quifa','Rubiales','Sabanero'];
+  // Tomar todos los campos que aparezcan en PEOPLE excepto Base (que no usa camioneta)
+  // y excepto cualquier campo desconocido (no presente en FIELDS)
+  const campos = [...new Set(PEOPLE.map(p => p.f))]
+    .filter(f => f !== 'Base' && FIELDS[f])
+    .sort();
+
   ['ingreso','salida'].forEach(direction => {
     campos.forEach(campo => {
       const group = PEOPLE.filter(p => p.f === campo && p.dir === direction);
@@ -1046,7 +1051,10 @@ function renderPlan() {
 
 function renderPending() {
   const container = document.getElementById('pending-list');
-  const campos = ['Rubiales','Cajua','Quifa','Sabanero'];
+  // Tomar todos los campos donde haya alguna persona, excepto Base
+  const campos = [...new Set(PEOPLE.map(p => p.f))]
+    .filter(f => f !== 'Base' && FIELDS[f])
+    .sort();
   let html = '';
 
   let anyPending = false;
@@ -1451,7 +1459,8 @@ function removeTruck(truckId) {
 }
 
 function renumberTrucks() {
-  const campoOrder = ['Cajua','Quifa','Rubiales','Sabanero'];
+  // Orden: todos los campos detectados en TRUCKS (excepto Base, que no tiene)
+  const campoOrder = [...new Set(TRUCKS.map(t => t.destino))].sort();
   let n = 1;
   ['ingreso','salida'].forEach(dir => {
     campoOrder.forEach(campo => {
@@ -1464,7 +1473,10 @@ function renumberTrucks() {
 
 function addTruck(presetDirection) {
   const container = document.getElementById('modal-container');
-  const campos = ['Rubiales','Cajua','Quifa','Sabanero'];
+  // Mostrar todos los campos del catálogo excepto Base, en orden alfabético
+  const campos = Object.keys(FIELDS)
+    .filter(f => f !== 'Base' && FIELDS[f].needsTruck !== false)
+    .sort();
   const dirTitle = presetDirection === 'ingreso' ? 'de INGRESO' : presetDirection === 'salida' ? 'de SALIDA' : '';
   container.innerHTML = `
     <div class="modal-backdrop" onclick="if(event.target===this) closeModal()">
