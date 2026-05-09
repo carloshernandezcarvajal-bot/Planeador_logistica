@@ -815,6 +815,12 @@
         </div>
       </div>
 
+      <!-- Panel de cambios del catálogo (campos nuevos detectados) -->
+      <div id="catalog-summary" class="hidden mt-4 border border-line rounded-xl p-4 bg-paper-warm">
+        <div class="label-section mb-2">Catálogo de campos</div>
+        <div id="catalog-summary-body" class="text-sm leading-relaxed"></div>
+      </div>
+
       <div class="mt-4 bg-paper-warm border border-line rounded-xl p-4">
         <div class="label-section mb-2">Modo actual</div>
         <div id="current-mode" class="text-sm">
@@ -2679,6 +2685,42 @@ const FIELDS_FULL = {
 // Actualizar el objeto FIELDS global con el catálogo completo
 Object.assign(FIELDS, FIELDS_FULL);
 
+// Variable para mostrar resumen de cambios de catálogo después de cargar
+let CATALOG_CHANGES = null;
+
+// Helpers para color de contraste
+function hexToRgb(hex) {
+  const m = hex.replace('#','').match(/.{2}/g);
+  return m ? m.map(x => parseInt(x, 16)) : [128,128,128];
+}
+function relativeLuminance(hex) {
+  const [r,g,b] = hexToRgb(hex).map(v => {
+    v = v / 255;
+    return v <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4);
+  });
+  return 0.2126*r + 0.7152*g + 0.0722*b;
+}
+function contrastTextColor(hex) {
+  return relativeLuminance(hex) > 0.55 ? '#0f1419' : '#ffffff';
+}
+
+// Genera color hex deterministico a partir del nombre — siempre da el mismo color para el mismo nombre
+function autoColorForField(name) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) | 0;
+  // Paleta de colores neutros agradables que no choquen con los oficiales
+  const palette = ['#7E57C2','#26A69A','#EF5350','#42A5F5','#AB47BC','#66BB6A','#EC407A','#5C6BC0','#FFA726','#789262','#9E5C5C'];
+  return palette[Math.abs(hash) % palette.length];
+}
+
+// Genera código de 2-4 letras a partir del nombre del campo
+function autoCodeForField(name) {
+  // Quitar palabras genéricas tipo "WSO", "Campo"
+  const words = name.replace(/[^a-záéíóúñA-ZÁÉÍÓÚÑ ]/g, '').trim().split(/\s+/);
+  if (words.length === 1) return words[0].substring(0, 3).toUpperCase();
+  return words.map(w => w[0]).join('').substring(0, 4).toUpperCase();
+}
+
 // DROP & DROP handlers
 (function setupDropzone() {
   const dz = document.getElementById('dropzone');
@@ -2712,6 +2754,86 @@ async function loadExcelFile(file) {
       throw new Error('La hoja "Asignaciones" no existe en el archivo. Asegúrate de usar el Excel de programación oficial.');
     }
 
+    // ====== 1. SINCRONIZAR CATÁLOGO DE CAMPOS desde cat_Campos ======
+    // Esto permite que el sistema reconozca campos nuevos sin tocar el código
+    const catalogChanges = { agregadosDelExcel: [], actualizados: [], faltantesEnExcel: [] };
+
+    if (wb.SheetNames.includes('cat_Campos')) {
+      const wsCat = wb.Sheets['cat_Campos'];
+      const catRows = XLSX.utils.sheet_to_json(wsCat, { header: 1, raw: false });
+
+      // Buscar fila de encabezado (Codigo, Nombre, ColorHex, Tipo, Activo)
+      let catHeaderIdx = -1;
+      for (let i = 0; i < Math.min(catRows.length, 10); i++) {
+        const r = catRows[i] || [];
+        if (r.includes('Codigo') && r.includes('Nombre')) {
+          catHeaderIdx = i;
+          break;
+        }
+      }
+
+      if (catHeaderIdx >= 0) {
+        const catHeader = catRows[catHeaderIdx];
+        const catCol = {
+          code:    catHeader.indexOf('Codigo'),
+          name:    catHeader.indexOf('Nombre'),
+          colorHex: catHeader.indexOf('ColorHex'),
+          color:    catHeader.indexOf('Color'),
+          tipo:    catHeader.indexOf('Tipo'),
+          activo:  catHeader.indexOf('Activo'),
+        };
+
+        const camposEnExcel = new Set();
+        for (let i = catHeaderIdx + 1; i < catRows.length; i++) {
+          const r = catRows[i];
+          if (!r || !r[catCol.name]) continue;
+          const nombre = String(r[catCol.name]).trim();
+          if (!nombre) continue;
+          const activo = catCol.activo >= 0 ? String(r[catCol.activo] || '').toLowerCase() : 'si';
+          if (activo === 'no') continue;
+
+          camposEnExcel.add(nombre);
+
+          // Color: preferir ColorHex (sin #), si no, Color (con #)
+          let colorHex = '';
+          if (catCol.colorHex >= 0 && r[catCol.colorHex]) {
+            const v = String(r[catCol.colorHex]).trim().replace(/^#/, '');
+            if (/^[0-9A-Fa-f]{6}$/.test(v)) colorHex = '#' + v.toUpperCase();
+          }
+          if (!colorHex && catCol.color >= 0 && r[catCol.color]) {
+            const v = String(r[catCol.color]).trim();
+            if (/^#?[0-9A-Fa-f]{6}$/.test(v)) colorHex = (v.startsWith('#') ? v : '#' + v).toUpperCase();
+          }
+          if (!colorHex) colorHex = autoColorForField(nombre);
+
+          const code = catCol.code >= 0 && r[catCol.code]
+            ? String(r[catCol.code]).trim().toUpperCase()
+            : autoCodeForField(nombre);
+
+          const newEntry = {
+            code,
+            color: colorHex,
+            text: contrastTextColor(colorHex),
+            needsTruck: nombre !== 'Base',
+          };
+
+          const existed = !!FIELDS[nombre];
+          const changed = existed && (FIELDS[nombre].code !== newEntry.code || FIELDS[nombre].color !== newEntry.color);
+
+          FIELDS[nombre] = newEntry;
+
+          if (!existed) catalogChanges.agregadosDelExcel.push({ nombre, code, color: colorHex });
+          else if (changed) catalogChanges.actualizados.push({ nombre, code, color: colorHex });
+        }
+
+        // Marcar campos del FIELDS_FULL hardcodeado que NO aparecen en este Excel
+        // (informativo, no se eliminan por si los datos los siguen usando)
+        Object.keys(FIELDS_FULL).forEach(nombre => {
+          if (!camposEnExcel.has(nombre)) catalogChanges.faltantesEnExcel.push(nombre);
+        });
+      }
+    }
+
     const ws = wb.Sheets['Asignaciones'];
     const rows = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false, dateNF: 'yyyy-mm-dd' });
 
@@ -2743,6 +2865,9 @@ async function loadExcelFile(file) {
     EXCEL_DATA = {};
     let registros = 0;
     let fechasSet = new Set();
+    const personasSet = new Set();
+    const camposEnAsignaciones = new Set();
+    const camposHuerfanos = new Set(); // campos en Asignaciones que NO están en FIELDS
 
     for (let i = headerRowIdx + 1; i < rows.length; i++) {
       const r = rows[i];
@@ -2753,7 +2878,6 @@ async function loadExcelFile(file) {
       if (fecha instanceof Date) {
         fecha = formatDateISO(fecha);
       } else if (typeof fecha === 'string') {
-        // Intentar parsear string
         const parsed = parseExcelDate(fecha);
         if (!parsed) continue;
         fecha = parsed;
@@ -2762,19 +2886,53 @@ async function loadExcelFile(file) {
       }
 
       if (!EXCEL_DATA[fecha]) EXCEL_DATA[fecha] = {};
+      const tipo = r[col.tipo] || '';
+      const asig = r[col.asig] || '';
       EXCEL_DATA[fecha][r[col.nombre]] = {
         cargo: r[col.cargo] || '',
         cod: r[col.codigo] || '',
-        asig: r[col.asig] || '',
-        tipo: r[col.tipo] || '',
+        asig: asig,
+        tipo: tipo,
       };
       registros++;
       fechasSet.add(fecha);
+      personasSet.add(r[col.nombre]);
+
+      // Si es operación directa, registrar el campo
+      if (tipo === 'Operacion directa' && asig) {
+        camposEnAsignaciones.add(asig);
+        // ¿Está en el catálogo? Si no, registrarlo y crear entrada automática
+        if (!FIELDS[asig]) {
+          camposHuerfanos.add(asig);
+          // Crear entrada automática para no perder los datos
+          const autoColor = autoColorForField(asig);
+          FIELDS[asig] = {
+            code: autoCodeForField(asig),
+            color: autoColor,
+            text: contrastTextColor(autoColor),
+            needsTruck: asig !== 'Base',
+          };
+          catalogChanges.agregadosDelExcel.push({
+            nombre: asig,
+            code: FIELDS[asig].code,
+            color: autoColor,
+            origen: 'auto-generado'
+          });
+        }
+      }
     }
 
     if (registros === 0) {
       throw new Error('No se encontraron registros válidos en la hoja.');
     }
+
+    CATALOG_CHANGES = {
+      ...catalogChanges,
+      camposHuerfanosAuto: [...camposHuerfanos],
+      camposEnUso: [...camposEnAsignaciones].sort(),
+      personasUnicas: personasSet.size,
+      registros,
+    };
 
     // Calcular martes disponibles (solo los que tienen datos en ese día Y el siguiente)
     AVAILABLE_TUESDAYS = [];
@@ -2795,13 +2953,44 @@ async function loadExcelFile(file) {
     showDropzoneState('loaded');
     document.getElementById('dz-filename').textContent = file.name;
     document.getElementById('dz-stats').textContent =
-      `${registros.toLocaleString('es-CO')} registros · ${fechasOrdenadas.length} días · ${AVAILABLE_TUESDAYS.length} martes disponibles`;
+      `${registros.toLocaleString('es-CO')} registros · ${fechasOrdenadas.length} días · ${AVAILABLE_TUESDAYS.length} martes disponibles · ${personasSet.size} personas`;
 
     populateTuesdaySelect();
+    renderCatalogSummary();
   } catch (err) {
     showDropzoneState('empty');
     showLoadError(err.message);
   }
+}
+
+function renderCatalogSummary() {
+  const panel = document.getElementById('catalog-summary');
+  const body = document.getElementById('catalog-summary-body');
+  if (!panel || !body || !CATALOG_CHANGES) return;
+
+  const c = CATALOG_CHANGES;
+  const partes = [];
+
+  partes.push(`<div class="mb-2"><strong>${c.camposEnUso.length}</strong> campos en uso · <strong>${c.personasUnicas}</strong> personas únicas · <strong>${c.registros.toLocaleString('es-CO')}</strong> registros</div>`);
+
+  if (c.agregadosDelExcel.length) {
+    const items = c.agregadosDelExcel.map(x => {
+      const tagAuto = x.origen === 'auto-generado' ? ' <span class="text-[10px] muted">(color auto)</span>' : '';
+      return `<span class="inline-flex items-center gap-1 mr-2 mb-1 px-2 py-0.5 rounded text-xs" style="background:${x.color};color:${contrastTextColor(x.color)}">${x.code} · ${x.nombre}${tagAuto}</span>`;
+    }).join('');
+    partes.push(`<div class="mt-2"><span class="muted">Nuevos en este Excel (${c.agregadosDelExcel.length}):</span><br>${items}</div>`);
+  }
+
+  if (c.actualizados.length) {
+    partes.push(`<div class="mt-2 text-xs muted">${c.actualizados.length} campos del catálogo se actualizaron (color o código).</div>`);
+  }
+
+  if (c.camposHuerfanosAuto.length) {
+    partes.push(`<div class="mt-2 text-xs" style="color:#7a5818">⚠ ${c.camposHuerfanosAuto.length} campos aparecieron en Asignaciones pero NO están en cat_Campos: <strong>${c.camposHuerfanosAuto.join(', ')}</strong>. Se les asignó color automático para no perder los datos. Recomendación: agregarlos a cat_Campos del Excel para color y código oficiales.</div>`);
+  }
+
+  body.innerHTML = partes.join('');
+  panel.classList.remove('hidden');
 }
 
 function showDropzoneState(state) {
@@ -3008,6 +3197,9 @@ function resetToDemo() {
   DEMO_INGRESOS.forEach(p => PEOPLE.push({...p, id: ++_id, dir: 'ingreso', truckId: null}));
   DEMO_SALIDAS.forEach(p => PEOPLE.push({...p, id: ++_id, dir: 'salida', truckId: null}));
   CONTINUAN = [];
+  CATALOG_CHANGES = null;
+  const panel = document.getElementById('catalog-summary');
+  if (panel) panel.classList.add('hidden');
 
   IS_LIVE_DATA = false;
   SELECTED_TUESDAY = null;
